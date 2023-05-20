@@ -1,44 +1,58 @@
-To generate a `Dockerfile` for your project, you can follow these steps:
+```markdown
+# Movie Recommendation System
 
-1. Create a new file named `Dockerfile` (without any file extension) in the root directory of your project.
+This is a simple movie recommendation system implemented in Python. Given a movie description, the system suggests the title of the most similar movie from a list of movies.
 
-2. Open the `Dockerfile` in a text editor and start writing the Dockerfile instructions.
+## Requirements
 
-3. Specify the base image: The base image is the starting point for your Docker image. Choose a base image that supports your project's runtime environment. For example, if you are using Python, you can use an official Python base image. Specify the version based on your project's requirements. For example:
-   ```Dockerfile
-   FROM python:3.9
+- Python 3.x
+- spaCy (Install using `pip install spacy`)
+- spaCy English language model (Download using `python -m spacy download en_core_web_md`)
+
+## Installation
+
+1. Clone the repository:
+
+   ```
+   git clone <repository_url>
    ```
 
-4. Copy your project files: Use the `COPY` instruction to copy your project files into the Docker image. This includes your source code, `requirements.txt` file, and any other necessary files. For example:
-   ```Dockerfile
-   COPY . /app
+2. Navigate to the project directory:
+
+   ```
+   cd movie-recommendation-system
    ```
 
-5. Set the working directory: Use the `WORKDIR` instruction to set the working directory inside the Docker image. This is the directory where your commands will run. For example:
-   ```Dockerfile
-   WORKDIR /app
+3. Install the required dependencies:
+
+   ```
+   pip install -r requirements.txt
    ```
 
-6. Install dependencies: Use the `RUN` instruction to install the project dependencies from the `requirements.txt` file. For example:
-   ```Dockerfile
-   RUN pip install -r requirements.txt
+4. Prepare the movie data:
+   - Open the `movies.txt` file.
+   - Update the file with your movie descriptions in the following format:
+
+     ```
+     Movie A :When Hiccup discovers Toothless isn't the only Night Fury, he must seek "The Hidden World", a secret Dragon Utopia before a hired tyrant named Grimmel finds it first.
+     Movie B :After the death of Superman, several new people present themselves as possible successors.
+     Movie C :A darkness swirls at the center of a world-renowned dance company, one that will engulf the artistic director, an ambitious young dancer, and a grieving psychotherapist. Some will succumb to the nightmare. Others will finally wake up.
+     ...
+     ```
+
+## Usage
+
+1. Run the Python script:
+
+   ```
+   python movie_recommendation.py
    ```
 
-7. Specify the default command: Use the `CMD` instruction to define the default command that will run when the container starts. This typically runs your project's main script or starts the application server. For example:
-   ```Dockerfile
-   CMD python main.py
-   ```
+2. Enter a movie description when prompted.
 
-8. Save the `Dockerfile` and close the text editor.
+3. The system will recommend the title of the most similar movie based on the given description.
 
-That's it! You have created a basic `Dockerfile` for your project. You can further customize it based on your project's requirements, such as exposing ports, setting environment variables, or adding additional configurations. To build a Docker image using this `Dockerfile`, navigate to the directory containing the `Dockerfile` in your terminal and run the following command:
+## License
+
+This project is licensed under the [MIT License](LICENSE).
 ```
-docker build -t image_name .
-```
-Replace `image_name` with the desired name for your Docker image. The `.` at the end specifies that the `Dockerfile` is present in the current directory.
-
-Once the build is complete, you can run a Docker container using the generated image by executing:
-```
-docker run image_name
-```
-This will start the container and execute the default command specified in the `Dockerfile`.
